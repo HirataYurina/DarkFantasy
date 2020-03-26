@@ -1,2 +1,2 @@
 # DarkFantasy
-Deep Dark Fantasy, Boy next door, thank you sir!
+Deep Dark Fantasy, life's not out to get you!
