@@ -10,9 +10,9 @@ import tensorflow.keras.layers as layers
 from layers.Mish import Mish
 
 
-# ------------------------ #
+# ################################
 # 单次卷积 无激活函数层和BN层
-# ------------------------ #
+# ################################
 def darknet_conv2d(inputs, filters, kernel_size, strides, use_bias=True):
     padding = 'valid' if strides == 2 else 'same'
 
@@ -22,9 +22,9 @@ def darknet_conv2d(inputs, filters, kernel_size, strides, use_bias=True):
     return y
 
 
-# -------------------- #
-# 卷积 BN + Mish
-# -------------------- #
+# ################################
+# Conv + BN + Mish
+# ################################
 def darknet_con2d_bn_mish(inputs, filters, kernel_size, strides):
     y = darknet_conv2d(inputs, filters, kernel_size, strides, use_bias=False)
     y = layers.BatchNormalization()(y)
@@ -33,10 +33,10 @@ def darknet_con2d_bn_mish(inputs, filters, kernel_size, strides):
     return y
 
 
-# ----------------------------------- #
+# ######################################
 #   残差块：
 #   应用cross stage partial进行梯度分流
-# ----------------------------------- #
+# ######################################
 def res_block(x, num_filters, num_blocks, all_narrow=True):
     x = layers.ZeroPadding2D(((1, 0), (1, 0)))(x)
     preconv = darknet_con2d_bn_mish(x, num_filters, 3, 2)
@@ -62,7 +62,7 @@ def res_block(x, num_filters, num_blocks, all_narrow=True):
         mainconv = layers.Add()([mainconv, y])
     # 后卷积
     postconv = darknet_con2d_bn_mish(mainconv, num_filters // 2 if all_narrow else num_filters, 1, 1)
-    # 进行连接
+    # 连接
     route = layers.Concatenate()([postconv, shortconv])
     # partial transition layer
     outputs = darknet_con2d_bn_mish(route, num_filters, 1, 1)

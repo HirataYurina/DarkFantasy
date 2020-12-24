@@ -10,9 +10,9 @@ import tensorflow.keras.layers as layers
 import tensorflow.keras as keras
 
 
-# ------------------------ #
+# ################################
 # 单次卷积 无激活函数层和BN层
-# ------------------------ #
+# ################################
 def darknet_conv2d(inputs, filters, kernel_size, strides, use_bias=True):
     padding = 'valid' if strides == 2 else 'same'
 
@@ -22,9 +22,9 @@ def darknet_conv2d(inputs, filters, kernel_size, strides, use_bias=True):
     return y
 
 
-# -------------------- #
-# 卷积 BN + Leaky
-# -------------------- #
+# ################################
+# Conv + BN + Leaky
+# ################################
 def darknet_con2d_bn_leaky(inputs, filters, kernel_size, strides):
     y = darknet_conv2d(inputs, filters, kernel_size, strides, use_bias=False)
     y = layers.BatchNormalization()(y)

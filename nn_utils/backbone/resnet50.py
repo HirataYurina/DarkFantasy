@@ -36,7 +36,6 @@ def conv_block(inputs, kernel_size, filters, stage, block, strides=2):
 
     x = layers.Conv2D(filter3, 1, name=conv_name + '2c')(x)
     x = layers.BatchNormalization(name=bn_name + '2c')(x)
-    x = layers.ReLU()(x)
 
     y = layers.Conv2D(filter3, 1, strides=strides, name=conv_name + '1')(inputs)
     y = layers.BatchNormalization(name=bn_name + '1')(y)
@@ -63,7 +62,6 @@ def identity_block(inputs, kernel_size, filters, stage, block):
 
     x = layers.Conv2D(filter3, 1, name=conv_name + '2c')(x)
     x = layers.BatchNormalization(name=bn_name + '2c')(x)
-    x = layers.ReLU()(x)
 
     outputs = layers.Add()([x, inputs])
     outputs = layers.ReLU()(outputs)

@@ -7,9 +7,9 @@
 
 import h5py
 
-# ------------------------------ #
+# ################################
 # 查看weights.h5文件内容
-# ------------------------------ #
+# ################################
 
 # 读取h5py文件
 # 其实就是个字典文件
@@ -34,6 +34,3 @@ def print_(name):
 print(model_weights.visit(print_))
 
 print(model_weights['conv1']['conv1'].keys())  # <KeysViewHDF5 ['kernel:0']>
-
-import tensorflow.keras.models as models
-models.Model.load_weights()
